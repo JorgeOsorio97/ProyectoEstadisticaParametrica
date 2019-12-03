@@ -20,9 +20,17 @@ data <- data.frame(
 
 # Eliminamos valores 0 de Value
 data <- data[data$Value>0,]
+#Tomamos muestea de tamaño 100
+data <- data[sample(nrow(data), 100),]
 
 # Creamos tabla de resumen de ambas variables cuantitativas
+# Inciso 2.b
 cuantitatives <- data.frame(data$Value, data$Overall)
 resume_cuantitatives <- summary(cuantitatives)
 resume_cuantitatives <- rbind(resume_cuantitatives, c(paste("Sd." ,sd(cuantitatives$data.Value)), paste("Sd." ,sd(cuantitatives$data.Overall))))
 
+hist(data$Value)
+hist(data$Overall)
+
+boxplot(data$Value)
+boxplot(data$Overall)
