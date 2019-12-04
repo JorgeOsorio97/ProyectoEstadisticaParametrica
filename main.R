@@ -1,5 +1,6 @@
 library(stringr)
 library(gtools)
+library(ggplot2)
 
 source("utils.R")
 
@@ -29,7 +30,7 @@ mu_overall <- mean(data$Overall)
 #   * Desviaciones estandar
 sigma_value <- pop.sd(data$Value)
 sigma_overall <- pop.sd(data$Overall)
-# * Coeficiente de correlacion
+#   * Coeficiente de correlacion
 corr = cor(data$Value, data$Overall)
 
 # Calsificacion de variables cuantitativas
@@ -59,12 +60,13 @@ boxplot(sample$Overall)
 
 # TEMA 4
 
-# * Creamos la poblacion de 6 observaciones, calculamos media y varianza usando la variable Overall
+# * 1. Creamos la poblacion de 6 observaciones usando la variable Overall
 omega_x3 <- data$Overall[sample(nrow(data),6)]
+# * 2. Calculamos media y varianza
 mean_omega_x3 <- mean(omega_x3)
 var_omega_x3 <- pop.var(omega_x3)
 
-# * Generamos todas las mustras posibles de tamaño 3 con usando combinatorias
+# * 3. Generamos todas las mustras posibles de tamaño 3 con usando combinatorias
 omega_samples <- combinations(length(omega_x3), 3, omega_x3, set = FALSE, repeats.allowed = FALSE)
 
 # * Calculamos media y varianza de cada muestra
@@ -73,12 +75,36 @@ omega_distributions = data.frame(
   "var" = sapply(seq_len(nrow(omega_samples)), function(x) var(omega_samples[x,]))
 )
 
-# * Generamos la tabla de distribucion para la media y calculamos el valor esperado
+# * 4. Generamos la tabla de distribucion para la media y varianza
 omega_mean_distribution=table(omega_distributions$mean)
-e_mean_omega_x3 = sum(sapply(seq_len(nrow(omega_mean_distribution)),function(x) as.numeric(names(omega_mean_distribution[x]))*omega_mean_distribution[x]))/length(omega_samples[,1])
-
-# * Generamos la tabla de distribucion para la varianza y calculamos el valor esperado
 omega_var_distribution=table(omega_distributions$var)
+
+
+# * 5. Calculamos el valor esperado de la media y la varianza
+e_mean_omega_x3 = sum(sapply(seq_len(nrow(omega_mean_distribution)),function(x) as.numeric(names(omega_mean_distribution[x]))*omega_mean_distribution[x]))/length(omega_samples[,1])
 e_var_omega_x3 = sum(sapply(seq_len(nrow(omega_var_distribution)),function(x) as.numeric(names(omega_var_distribution[x]))*omega_var_distribution[x]))/length(omega_samples[,1]-1)
 
-       
+
+# Teorema central de límite (TCL)
+
+# * 1. Revisammos con graficas si la variable parece ser normal
+ggplot(sample, aes(Overall)) + geom_histogram(fill="#33c7ff") + geom_freqpoly(colour="#000000")
+boxplot(sample$Overall)
+
+# * Creamos 10,000 medias muestrales para verificar el TCL
+samples_means = numeric()
+for(i in 0:10000){
+  samples_means[i] <- mean(sample(sample$Overall,25))
+}
+# * Creamos 10,000 numeros aleatorios de una distribucion normal con
+#     media=media de values
+#     varianza= varianza de values entre el tamaño de muestra
+mean_distribution_samples = rnorm(10000, mean = mean(sample$Overall), sd = pop.sd(sample$Overall)/25)
+tcl_results=data.frame(
+  means=samples_means,
+  distribution = mean_distribution_samples
+)
+# 
+ggplot(tcl_results, aes(means)) + geom_density(fill="#33c7ff", alpha=0.5) 
+ggplot(tcl_results, aes(distribution)) + geom_density(fill="#33cf7f", alpha=0.5)
+  
