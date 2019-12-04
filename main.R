@@ -20,17 +20,39 @@ data <- data.frame(
 
 # Eliminamos valores 0 de Value
 data <- data[data$Value>0,]
+
+# Calculamos valores poblacionales
+#   * Medias
+mu_value <- mean(data$Value)
+mu_overall <- mean(data$Overall)
+#   * Desviaciones estandar
+sigma_value <- pop.sd(data$Value)
+sigma_overall <- pop.sd(data$Overall)
+# * Coeficiente de correlacion
+corr = cor(data$Value, data$Overall)
+
+# Calsificacion de variables cuantitativas
+gk_value = data$Value[data$Position=="GK"]
+st_value = data$Value[data$Position=="ST"]
+other_value = data$Value[data$Position=="Other"]
+
+gk_overall = data$Overall[data$Position=="GK"]
+st_overall = data$Overall[data$Position=="ST"]
+other_overall = data$Overall[data$Position=="Other"]
+
+unique(data$Position)
+
 #Tomamos muestea de tamaño 100
-data <- data[sample(nrow(data), 100),]
+sample <- data[sample(nrow(data), 100),]
 
 # Creamos tabla de resumen de ambas variables cuantitativas
 # Inciso 2.b
-cuantitatives <- data.frame(data$Value, data$Overall)
+cuantitatives <- data.frame(sample$Value, sample$Overall)
 resume_cuantitatives <- summary(cuantitatives)
-resume_cuantitatives <- rbind(resume_cuantitatives, c(paste("Sd." ,sd(cuantitatives$data.Value)), paste("Sd." ,sd(cuantitatives$data.Overall))))
+resume_cuantitatives <- rbind(resume_cuantitatives, c(paste("Sd. :" ,sd(cuantitatives$sample.Value)), paste("Sd. :" ,sd(cuantitatives$sample.Overall))))
 
-hist(data$Value)
-hist(data$Overall)
+hist(sample$Value)
+hist(sample$Overall)
 
-boxplot(data$Value)
-boxplot(data$Overall)
+boxplot(sample$Value)
+boxplot(sample$Overall)
