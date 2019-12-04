@@ -24,14 +24,14 @@ data <- data.frame(
 data <- data[data$Value>0,]
 
 # Calculamos valores poblacionales
-#   * Medias
+# * Medias
 mu_value <- mean(data$Value)
 mu_overall <- mean(data$Overall)
-#   * Desviaciones estandar
+# * Desviaciones estandar
 sigma_value <- pop.sd(data$Value)
 sigma_overall <- pop.sd(data$Overall)
-#   * Coeficiente de correlacion
-corr = cor(data$Value, data$Overall)
+# * Coeficiente de correlacion
+corr = pop.cor(data$Value, data$Overall)
 
 # Calsificacion de variables cuantitativas
 gk_value = data$Value[data$Position=="GK"]
@@ -104,7 +104,29 @@ tcl_results=data.frame(
   means=samples_means,
   distribution = mean_distribution_samples
 )
-# 
+# * Comparamos los datos con gráficas
 ggplot(tcl_results, aes(means)) + geom_density(fill="#33c7ff", alpha=0.5) 
 ggplot(tcl_results, aes(distribution)) + geom_density(fill="#33cf7f", alpha=0.5)
-  
+
+# * Comparamos la media y la varianza de las medias generadas con la de la poblacion
+# ** Recordemos la media poblacional debe ser igual a la media de las medias
+mean(sample$Overall)
+mean(samples_means)
+# ** Recordemos la varianza de las medias debe ser igual a la varianza poblacional dividido en la longitud del interalo
+pop.var(sample$Overall)/25
+pop.var(samples_means)
+
+# TEMA 5
+
+# * 1. Estimación puntual la proporción para las variables cualitativas
+
+
+# * 2. Estimación puntual de variables cuantitativas
+# ** Values
+value_sample_mean = mean(sample$Value)
+value_sample_var = sd(sample$Value)
+# ** Overall
+overall_sample_mean = mean(sample$Overall)
+overall_sample_var = sd(sample$Overall)
+# ** Corelacion
+sample_corr = cor()

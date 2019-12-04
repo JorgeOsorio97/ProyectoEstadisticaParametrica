@@ -28,7 +28,8 @@ getTwoMaxValues <- function (list){
   c(names(sort(table(list),decreasing=TRUE)[1:2]))
 }
 
-# Population variance and standard deviation
+# Population statistics
 pop.var <- function(x) var(x) * (length(x)-1) / length(x)
 pop.sd <- function(x) sqrt(pop.var(x))
-
+pop.cov <- function(x,y) cov(x,y) * (length(x)-1) / length(x)
+pop.cor <- function(x,y){ pop.cov(x,y)/(pop.sd(x) * pop.sd(y))}
