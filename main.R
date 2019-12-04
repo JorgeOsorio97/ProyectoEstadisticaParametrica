@@ -1,4 +1,5 @@
 library(stringr)
+library(gtools)
 
 source("utils.R")
 
@@ -40,8 +41,6 @@ gk_overall = data$Overall[data$Position=="GK"]
 st_overall = data$Overall[data$Position=="ST"]
 other_overall = data$Overall[data$Position=="Other"]
 
-unique(data$Position)
-
 #Tomamos muestea de tamaño 100
 sample <- data[sample(nrow(data), 100),]
 
@@ -56,3 +55,30 @@ hist(sample$Overall)
 
 boxplot(sample$Value)
 boxplot(sample$Overall)
+
+
+# TEMA 4
+
+# * Creamos la poblacion de 6 observaciones, calculamos media y varianza usando la variable Overall
+omega_x3 <- data$Overall[sample(nrow(data),6)]
+mean_omega_x3 <- mean(omega_x3)
+var_omega_x3 <- pop.var(omega_x3)
+
+# * Generamos todas las mustras posibles de tamaño 3 con usando combinatorias
+omega_samples <- combinations(length(omega_x3), 3, omega_x3, set = FALSE, repeats.allowed = FALSE)
+
+# * Calculamos media y varianza de cada muestra
+omega_distributions = data.frame(
+  "mean" = sapply(seq_len(nrow(omega_samples)), function(x) mean(omega_samples[x,])),
+  "var" = sapply(seq_len(nrow(omega_samples)), function(x) var(omega_samples[x,]))
+)
+
+# * Generamos la tabla de distribucion para la media y calculamos el valor esperado
+omega_mean_distribution=table(omega_distributions$mean)
+e_mean_omega_x3 = sum(sapply(seq_len(nrow(omega_mean_distribution)),function(x) as.numeric(names(omega_mean_distribution[x]))*omega_mean_distribution[x]))/length(omega_samples[,1])
+
+# * Generamos la tabla de distribucion para la varianza y calculamos el valor esperado
+omega_var_distribution=table(omega_distributions$var)
+e_var_omega_x3 = sum(sapply(seq_len(nrow(omega_var_distribution)),function(x) as.numeric(names(omega_var_distribution[x]))*omega_var_distribution[x]))/length(omega_samples[,1]-1)
+
+       

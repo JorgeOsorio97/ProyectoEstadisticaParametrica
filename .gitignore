@@ -71,3 +71,8 @@ Training
 Blog
 About
 .Rproj.user
+
+# LATEX files
+*.aux
+*.gz
+*.pdf
