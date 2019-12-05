@@ -129,4 +129,4 @@ value_sample_var = sd(sample$Value)
 overall_sample_mean = mean(sample$Overall)
 overall_sample_var = sd(sample$Overall)
 # ** Corelacion
-sample_corr = cor()
+sample_corr = cor(sample$Value, sample$Overall)
