@@ -36,14 +36,23 @@ sigma_overall <- pop.sd(data$Overall)
 # * Coeficiente de correlacion
 corr = pop.cor(data$Value, data$Overall)
 
-# Calsificacion de variables cuantitativas
+# Clasificacion de variables cuantitativas
+# * Position-Value
 gk_value = data$Value[data$Position=="GK"]
 st_value = data$Value[data$Position=="ST"]
 other_value = data$Value[data$Position=="Other"]
-
+# * Position-Overall
 gk_overall = data$Overall[data$Position=="GK"]
 st_overall = data$Overall[data$Position=="ST"]
 other_overall = data$Overall[data$Position=="Other"]
+# * AttackRate-Value
+high_value = data$Value[data$AttackRate=="High"]
+medium_value = data$Value[data$AttackRate=="Medium"]
+low_value = data$Value[data$AttackRate=="Low"]
+# * AttackRate-Overall
+high_overall = data$Overall[data$AttackRate=="High"]
+medium_overall = data$Overall[data$AttackRate=="Medium"]
+low_overall = data$Overall[data$AttackRate=="Low"]
 
 #Tomamos muestea de tamaño 100
 n=100 #sample size
@@ -144,7 +153,7 @@ overall_sample_sd = sd(sample$Overall)
 sample_corr = cor(sample$Value, sample$Overall)
 
 
-# * 3. Intervalos de confianza
+# * 3. Intervalos de confianza una poblacion
 # ** a) Para variables cualitativas X1 y X2 parametro p 90%
 confianza_p =1-0.9
 # *** AttackRate X1
@@ -164,6 +173,7 @@ itr_p_position_Other = c(pr_position_Other-dnorm(confianza_p/2)*sqrt((pr_positio
                          pr_position_Other+dnorm(confianza_p/2)*sqrt((pr_position_Other*(1-pr_position_Other)/n)))
 
 # ** b) Para variables cuantitativas X3 y X4
+#        consideramos varianza conocida
 confianza_m=1-0.9
 confianza_v=1-0.95
 # *** Overall X3
@@ -177,3 +187,42 @@ itr_mean_value = c(value_sample_mean-dnorm(confianza_m/2)*(sigma_value/sqrt(n)),
                    value_sample_mean+dnorm(confianza_m/2)*(sigma_value/sqrt(n)))
 itr_var_value = c(((n-1)*value_sample_var)/qchisq(confianza_v/2,n-1, lower.tail = FALSE),
                     ((n-1)*value_sample_var)/qchisq(1-(confianza_v/2),n-1, lower.tail = FALSE))
+
+# * Intervalos de confianza dos poblaciones
+# ** Construimos muestra de tamaño 30
+n2 = 30
+# *** Position-Value
+sample_gk_value <- gk_value[sample(length(gk_value),n2)]
+sample_st_value <- st_value[sample(length(st_value),n2)]
+sample_other_value <- other_value[sample(length(other_value),n2)]
+# *** Position-Overall
+sample_gk_overall <- gk_overall[sample(length(gk_overall),n2)]
+sample_st_overall <- st_overall[sample(length(st_overall),n2)]
+sample_other_overall <- other_overall[sample(length(other_overall),n2)]
+# *** AttackRate-Value
+sample_high_value <- high_value[sample(length(high_value),n2)]
+sample_medium_value <- medium_value[sample(length(medium_value),n2)]
+sample_low_value <- low_value[sample(length(low_value),n2)]
+# *** AttackRate-Overall
+sample_high_overall <- high_overall[sample(length(high_overall),n2)]
+sample_medium_overall <- medium_overall[sample(length(medium_overall),n2)]
+sample_low_overall <- low_overall[sample(length(low_overall),n2)]
+
+# ** Intervalo de confianza de la diferencia de medias
+confianza_dif_m = 1-0.85
+dif_m_overall_gk_st <- c((mean(sample_gk_overall)-mean(sample_st_overall))-(dnorm(confianza_dif_m/2)*sqrt((pop.var(gk_overall)/length(gk_overall)+pop.var(st_overall)/length(st_overall)))),
+                         (mean(sample_gk_overall)-mean(sample_st_overall))+(dnorm(confianza_dif_m/2)*sqrt((pop.var(gk_overall)/length(gk_overall)+pop.var(st_overall)/length(st_overall)))))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
