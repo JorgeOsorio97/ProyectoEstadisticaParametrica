@@ -257,44 +257,44 @@ dif_m_value_medium_low <- c((mean(sample_medium_value)-mean(sample_low_value))-(
 # ** Intervalo de confianza de cociente de varianzas
 confianza_coc_var = 1-0.95
 # *** Overall-Position
-coc_var_overall_gk_st = c((var(sample_gk_overall)/var(sample_st_overall))*qf(1-(confianza_coc_var/2),length(sample_st_overall)-1,length(sample_gk_overall)-1),
-                          (var(sample_gk_overall)/var(sample_st_overall))*qf((confianza_coc_var/2),length(sample_st_overall)-1,length(sample_gk_overall)-1))
+coc_var_overall_gk_st = c((var(sample_gk_overall)/var(sample_st_overall))*qf(1-(confianza_coc_var/2),length(sample_st_overall)-1,length(sample_gk_overall)-1, lower.tail = FALSE),
+                          (var(sample_gk_overall)/var(sample_st_overall))*qf((confianza_coc_var/2),length(sample_st_overall)-1,length(sample_gk_overall)-1, lower.tail = FALSE))
 
-coc_var_overall_gk_other = c((var(sample_gk_overall)/var(sample_other_overall))*qf(1-(confianza_coc_var/2),length(sample_other_overall)-1,length(sample_gk_overall)-1),
-                          (var(sample_gk_overall)/var(sample_other_overall))*qf((confianza_coc_var/2),length(sample_other_overall)-1,length(sample_gk_overall)-1))
+coc_var_overall_gk_other = c((var(sample_gk_overall)/var(sample_other_overall))*qf(1-(confianza_coc_var/2),length(sample_other_overall)-1,length(sample_gk_overall)-1, lower.tail = FALSE),
+                          (var(sample_gk_overall)/var(sample_other_overall))*qf((confianza_coc_var/2),length(sample_other_overall)-1,length(sample_gk_overall)-1, lower.tail = FALSE))
 
-coc_var_overall_st_other = c((var(sample_st_overall)/var(sample_other_overall))*qf(1-(confianza_coc_var/2),length(sample_other_overall)-1,length(sample_st_overall)-1),
-                             (var(sample_st_overall)/var(sample_other_overall))*qf((confianza_coc_var/2),length(sample_other_overall)-1,length(sample_st_overall)-1))
+coc_var_overall_st_other = c((var(sample_st_overall)/var(sample_other_overall))*qf(1-(confianza_coc_var/2),length(sample_other_overall)-1,length(sample_st_overall)-1, lower.tail = FALSE),
+                             (var(sample_st_overall)/var(sample_other_overall))*qf((confianza_coc_var/2),length(sample_other_overall)-1,length(sample_st_overall)-1, lower.tail = FALSE))
 
 # *** Overall-Attack
-coc_var_overall_high_medium = c((var(sample_high_overall)/var(sample_medium_overall))*qf(1-(confianza_coc_var/2),length(sample_medium_overall)-1,length(sample_high_overall)-1),
-                          (var(sample_high_overall)/var(sample_medium_overall))*qf((confianza_coc_var/2),length(sample_medium_overall)-1,length(sample_high_overall)-1))
+coc_var_overall_high_medium = c((var(sample_high_overall)/var(sample_medium_overall))*qf(1-(confianza_coc_var/2),length(sample_medium_overall)-1,length(sample_high_overall)-1, lower.tail = FALSE),
+                          (var(sample_high_overall)/var(sample_medium_overall))*qf((confianza_coc_var/2),length(sample_medium_overall)-1,length(sample_high_overall)-1, lower.tail = FALSE))
 
-coc_var_overall_high_low = c((var(sample_high_overall)/var(sample_low_overall))*qf(1-(confianza_coc_var/2),length(sample_low_overall)-1,length(sample_high_overall)-1),
-                             (var(sample_high_overall)/var(sample_low_overall))*qf((confianza_coc_var/2),length(sample_low_overall)-1,length(sample_high_overall)-1))
+coc_var_overall_high_low = c((var(sample_high_overall)/var(sample_low_overall))*qf(1-(confianza_coc_var/2),length(sample_low_overall)-1,length(sample_high_overall)-1, lower.tail = FALSE),
+                             (var(sample_high_overall)/var(sample_low_overall))*qf((confianza_coc_var/2),length(sample_low_overall)-1,length(sample_high_overall)-1, lower.tail = FALSE))
 
-coc_var_overall_medium_low = c((var(sample_medium_overall)/var(sample_low_overall))*qf(1-(confianza_coc_var/2),length(sample_low_overall)-1,length(sample_medium_overall)-1),
-                             (var(sample_medium_overall)/var(sample_low_overall))*qf((confianza_coc_var/2),length(sample_low_overall)-1,length(sample_medium_overall)-1))
+coc_var_overall_medium_low = c((var(sample_medium_overall)/var(sample_low_overall))*qf(1-(confianza_coc_var/2),length(sample_low_overall)-1,length(sample_medium_overall)-1, lower.tail = FALSE),
+                             (var(sample_medium_overall)/var(sample_low_overall))*qf((confianza_coc_var/2),length(sample_low_overall)-1,length(sample_medium_overall)-1, lower.tail = FALSE))
 
 # *** Value-Position
-coc_var_value_gk_st = c((var(sample_gk_value)/var(sample_st_value))*qf(1-(confianza_coc_var/2),length(sample_st_value)-1,length(sample_gk_value)-1),
-                          (var(sample_gk_value)/var(sample_st_value))*qf((confianza_coc_var/2),length(sample_st_value)-1,length(sample_gk_value)-1))
+coc_var_value_gk_st = c((var(sample_gk_value)/var(sample_st_value))*qf(1-(confianza_coc_var/2),length(sample_st_value)-1,length(sample_gk_value)-1, lower.tail = FALSE),
+                          (var(sample_gk_value)/var(sample_st_value))*qf((confianza_coc_var/2),length(sample_st_value)-1,length(sample_gk_value)-1, lower.tail = FALSE))
 
-coc_var_value_gk_other = c((var(sample_gk_value)/var(sample_other_value))*qf(1-(confianza_coc_var/2),length(sample_other_value)-1,length(sample_gk_value)-1),
-                             (var(sample_gk_value)/var(sample_other_value))*qf((confianza_coc_var/2),length(sample_other_value)-1,length(sample_gk_value)-1))
+coc_var_value_gk_other = c((var(sample_gk_value)/var(sample_other_value))*qf(1-(confianza_coc_var/2),length(sample_other_value)-1,length(sample_gk_value)-1, lower.tail = FALSE),
+                             (var(sample_gk_value)/var(sample_other_value))*qf((confianza_coc_var/2),length(sample_other_value)-1,length(sample_gk_value)-1, lower.tail = FALSE))
 
-coc_var_value_st_other = c((var(sample_st_value)/var(sample_other_value))*qf(1-(confianza_coc_var/2),length(sample_other_value)-1,length(sample_st_value)-1),
-                             (var(sample_st_value)/var(sample_other_value))*qf((confianza_coc_var/2),length(sample_other_value)-1,length(sample_st_value)-1))
+coc_var_value_st_other = c((var(sample_st_value)/var(sample_other_value))*qf(1-(confianza_coc_var/2),length(sample_other_value)-1,length(sample_st_value)-1, lower.tail = FALSE),
+                             (var(sample_st_value)/var(sample_other_value))*qf((confianza_coc_var/2),length(sample_other_value)-1,length(sample_st_value)-1, lower.tail = FALSE))
 
 # *** Value-Attack
-coc_var_value_high_medium = c((var(sample_high_value)/var(sample_medium_value))*qf(1-(confianza_coc_var/2),length(sample_medium_value)-1,length(sample_high_value)-1),
-                                (var(sample_high_value)/var(sample_medium_value))*qf((confianza_coc_var/2),length(sample_medium_value)-1,length(sample_high_value)-1))
+coc_var_value_high_medium = c((var(sample_high_value)/var(sample_medium_value))*qf(1-(confianza_coc_var/2),length(sample_medium_value)-1,length(sample_high_value)-1, lower.tail = FALSE),
+                                (var(sample_high_value)/var(sample_medium_value))*qf((confianza_coc_var/2),length(sample_medium_value)-1,length(sample_high_value)-1, lower.tail = FALSE))
 
-coc_var_value_high_low = c((var(sample_high_value)/var(sample_low_value))*qf(1-(confianza_coc_var/2),length(sample_low_value)-1,length(sample_high_value)-1),
-                             (var(sample_high_value)/var(sample_low_value))*qf((confianza_coc_var/2),length(sample_low_value)-1,length(sample_high_value)-1))
+coc_var_value_high_low = c((var(sample_high_value)/var(sample_low_value))*qf(1-(confianza_coc_var/2),length(sample_low_value)-1,length(sample_high_value)-1, lower.tail = FALSE),
+                             (var(sample_high_value)/var(sample_low_value))*qf((confianza_coc_var/2),length(sample_low_value)-1,length(sample_high_value)-1, lower.tail = FALSE))
 
-coc_var_value_medium_low = c((var(sample_medium_value)/var(sample_low_value))*qf(1-(confianza_coc_var/2),length(sample_low_value)-1,length(sample_medium_value)-1),
-                               (var(sample_medium_value)/var(sample_low_value))*qf((confianza_coc_var/2),length(sample_low_value)-1,length(sample_medium_value)-1))
+coc_var_value_medium_low = c((var(sample_medium_value)/var(sample_low_value))*qf(1-(confianza_coc_var/2),length(sample_low_value)-1,length(sample_medium_value)-1, lower.tail = FALSE),
+                               (var(sample_medium_value)/var(sample_low_value))*qf((confianza_coc_var/2),length(sample_low_value)-1,length(sample_medium_value)-1, lower.tail = FALSE))
 
 
 
