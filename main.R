@@ -4,6 +4,9 @@ library(ggplot2)
 
 source("utils.R")
 
+# Definimos seed para mantener resultados a lo largo del desarollo
+set.seed(5)
+
 # Tomamos todos los datos del data set
 complete_data <- read.csv("fifa19.csv", encoding="UTF-8")
 
@@ -210,8 +213,15 @@ sample_low_overall <- low_overall[sample(length(low_overall),n2)]
 
 # ** Intervalo de confianza de la diferencia de medias
 confianza_dif_m = 1-0.85
+# *** Overall-Posotion
 dif_m_overall_gk_st <- c((mean(sample_gk_overall)-mean(sample_st_overall))-(dnorm(confianza_dif_m/2)*sqrt((pop.var(gk_overall)/length(gk_overall)+pop.var(st_overall)/length(st_overall)))),
                          (mean(sample_gk_overall)-mean(sample_st_overall))+(dnorm(confianza_dif_m/2)*sqrt((pop.var(gk_overall)/length(gk_overall)+pop.var(st_overall)/length(st_overall)))))
+
+dif_m_overall_gk_other <- c((mean(sample_gk_overall)-mean(sample_other_overall))-(dnorm(confianza_dif_m/2)*sqrt((pop.var(gk_overall)/length(gk_overall)+pop.var(other_overall)/length(other_overall)))),
+                            (mean(sample_gk_overall)-mean(sample_other_overall))+(dnorm(confianza_dif_m/2)*sqrt((pop.var(gk_overall)/length(gk_overall)+pop.var(other_overall)/length(other_overall)))))
+
+dif_m_overall_st_other <- c((mean(sample_st_overall)-mean(sample_other_overall))-(dnorm(confianza_dif_m/2)*sqrt((pop.var(st_overall)/length(st_overall)+pop.var(other_overall)/length(other_overall)))),
+                            (mean(sample_st_overall)-mean(sample_other_overall))+(dnorm(confianza_dif_m/2)*sqrt((pop.var(st_overall)/length(st_overall)+pop.var(other_overall)/length(other_overall)))))
 
 
 
