@@ -5,7 +5,7 @@ library(ggplot2)
 source("utils.R")
 
 # Tomamos todos los datos del data set
-complete_data <- read.csv("fifa19.csv")
+complete_data <- read.csv("fifa19.csv", encoding="UTF-8")
 
 # Tomamos las 4 variable a tarbajar
 # * Cuantitativas:
