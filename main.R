@@ -27,6 +27,9 @@ data <- data[data$Value>0,]
 # * Medias
 mu_value <- mean(data$Value)
 mu_overall <- mean(data$Overall)
+# * Varianza
+var_value <- pop.var(data$Value)
+var_overall <- pop.var(data$Overall)
 # * Desviaciones estandar
 sigma_value <- pop.sd(data$Value)
 sigma_overall <- pop.sd(data$Overall)
@@ -43,7 +46,8 @@ st_overall = data$Overall[data$Position=="ST"]
 other_overall = data$Overall[data$Position=="Other"]
 
 #Tomamos muestea de tamaño 100
-sample <- data[sample(nrow(data), 100),]
+n=100 #sample size
+sample <- data[sample(nrow(data), n),]
 
 # Creamos tabla de resumen de ambas variables cuantitativas
 # Inciso 2.b
@@ -119,7 +123,14 @@ pop.var(samples_means)
 # TEMA 5
 
 # * 1. Estimación puntual la proporción para las variables cualitativas
-
+# ** Position
+pr_position_GK = length(sample$Position[sample$Position == "GK"])/n
+pr_position_ST = length(sample$Position[sample$Position == "ST"])/n
+pr_position_Other = length(sample$Position[sample$Position == "Other"])/n
+# ** AttackRate
+pr_attack_High = length(sample$AttackRate[sample$AttackRate == "High"])/n
+pr_attack_Medium = length(sample$AttackRate[sample$AttackRate == "Medium"])/n
+pr_attack_Low = length(sample$AttackRate[sample$AttackRate == "Low"])/n
 
 # * 2. Estimación puntual de variables cuantitativas
 # ** Values
@@ -127,6 +138,42 @@ value_sample_mean = mean(sample$Value)
 value_sample_var = sd(sample$Value)
 # ** Overall
 overall_sample_mean = mean(sample$Overall)
-overall_sample_var = sd(sample$Overall)
-# ** Corelacion
+overall_sample_var = var(sample$Overall)
+overall_sample_sd = sd(sample$Overall)
+# ** Correlacion
 sample_corr = cor(sample$Value, sample$Overall)
+
+
+# * 3. Intervalos de confianza
+# ** a) Para variables cualitativas X1 y X2 parametro p 90%
+confianza_p =1-0.9
+# *** AttackRate X1
+itr_p_attack_High = c(pr_attack_High-dnorm(confianza_p/2)*sqrt((pr_attack_High*(1-pr_attack_High)/n)),
+                            pr_attack_High+dnorm(confianza_p/2)*sqrt((pr_attack_High*(1-pr_attack_High)/n)))
+itr_p_attack_Medium = c(pr_attack_Medium-dnorm(confianza_p/2)*sqrt((pr_attack_Medium*(1-pr_attack_Medium)/n)),
+                              pr_attack_Medium+dnorm(confianza_p/2)*sqrt((pr_attack_Medium*(1-pr_attack_Medium)/n)))
+itr_p_attack_Low = c(pr_attack_Low-dnorm(confianza_p/2)*sqrt((pr_attack_Low*(1-pr_attack_Low)/n)),
+                           pr_attack_Low+dnorm(confianza_p/2)*sqrt((pr_attack_Low*(1-pr_attack_Low)/n)))
+
+# *** Position X2
+itr_p_position_GK = c(pr_position_GK-dnorm(confianza_p/2)*sqrt((pr_position_GK*(1-pr_position_GK)/n)),
+                      pr_position_GK+dnorm(confianza_p/2)*sqrt((pr_position_GK*(1-pr_position_GK)/n)))
+itr_p_position_ST = c(pr_position_ST-dnorm(confianza_p/2)*sqrt((pr_position_ST*(1-pr_position_ST)/n)),
+                      pr_position_ST+dnorm(confianza_p/2)*sqrt((pr_position_ST*(1-pr_position_ST)/n)))
+itr_p_position_Other = c(pr_position_Other-dnorm(confianza_p/2)*sqrt((pr_position_Other*(1-pr_position_Other)/n)),
+                         pr_position_Other+dnorm(confianza_p/2)*sqrt((pr_position_Other*(1-pr_position_Other)/n)))
+
+# ** b) Para variables cuantitativas X3 y X4
+confianza_m=1-0.9
+confianza_v=1-0.95
+# *** Overall X3
+itr_mean_overall = c(overall_sample_mean-dnorm(confianza_m/2)*(sigma_overall/sqrt(n)),
+                     overall_sample_mean+dnorm(confianza_m/2)*(sigma_overall/sqrt(n)))
+itr_var_overall = c(((n-1)*overall_sample_var)/qchisq(confianza_v/2,n-1, lower.tail = FALSE),
+                    ((n-1)*overall_sample_var)/qchisq(1-(confianza_v/2),n-1, lower.tail = FALSE))
+
+# *** Value X4
+itr_mean_value = c(value_sample_mean-dnorm(confianza_m/2)*(sigma_value/sqrt(n)),
+                   value_sample_mean+dnorm(confianza_m/2)*(sigma_value/sqrt(n)))
+itr_var_value = c(((n-1)*value_sample_var)/qchisq(confianza_v/2,n-1, lower.tail = FALSE),
+                    ((n-1)*value_sample_var)/qchisq(1-(confianza_v/2),n-1, lower.tail = FALSE))
