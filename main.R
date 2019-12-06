@@ -337,7 +337,12 @@ if(min(rc_overall) < z_calc_overall & z_calc_overall < max(rc_overall)){
 vp_overall <- 2*pnorm(z_calc_overall, lower.tail = FALSE)
 interpret_p_val(vp_overall)
 
+# * 2. Curva potencia
 
+pruebas <- c(65.5,65.7,65.9,66.1,66.3,66.5,66.7,66.9,67.1,67.3)
+pruebas_2 <- lapply(pruebas, function(x) pnorm((x-mu_overall)/(sigma_overall/sqrt(n))))
+
+plot(pruebas, pruebas_2, type='o')
 
 
 # * 3. Prueba de hipotesis dos poblaciones
@@ -445,8 +450,6 @@ if(min(rc_med_low_val) < z_calc_med_low_val & z_calc_med_low_val < max(rc_med_lo
 } else {
   print("Aceptamos hipotesis nula")
 }
-
-
 
 
 # ** Value - Position
