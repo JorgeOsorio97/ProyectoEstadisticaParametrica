@@ -33,3 +33,13 @@ pop.var <- function(x) var(x) * (length(x)-1) / length(x)
 pop.sd <- function(x) sqrt(pop.var(x))
 pop.cov <- function(x,y) cov(x,y) * (length(x)-1) / length(x)
 pop.cor <- function(x,y){ pop.cov(x,y)/(pop.sd(x) * pop.sd(y))}
+
+# p-value
+interpret_p_val <- function(pval){
+  if(pval>=0.05){
+    print("No existe suficiente evidencia para rechazar hipotesis nula")
+  } else if(pva>0.01){
+    print("Existe incertidumbre entre rechazar o no la hipotesis nula")
+  } else {
+    print("Se acepta hipotesis alternativa") 
+  }}

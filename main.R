@@ -306,17 +306,17 @@ coc_var_value_medium_low <- c((var(sample_medium_value)/var(sample_low_value))*q
 
 # TEMA 6 
 
-# * Contraste de hípotesis bilateral para Overall
+# * 1. Contraste de hípotesis bilateral para Overall
 # ** a)Planteamos hipótesis nula y alternativa
-# *** Nula: La media del overaal es diferente a 65
-# *** Alte: La media del overall es igual a 65
+# *** Nula: La media del overaal es igual a 65
+# *** Alte: La media del overall es diferente a 65
 # ** b) Hipotesis estadísticas
-# *** Nula: mean_overall != 65
-# *** Alte: mean_overall = 65
+# *** Nula: mean_overall = 65
+# *** Alte: mean_overall != 65
 
 # ** c) Establecemos nivel de significancia
 # *** Nivel de significancia 7%
-significance_level <- 0.7
+significance_level <- 0.07
 
 # ** d) Estadístico de prueba Z=( (sample_mean) - (pop_mean)) / raiz( vpop_var/tamaño_muestra)
 # *** Distribución del estadístico Z ~ N(0,1)
@@ -330,61 +330,222 @@ rc_overall <- c(-qnorm(significance_level/2), qnorm(significance_level/2))
 if(min(rc_overall) < z_calc_overall & z_calc_overall < max(rc_overall)){
   print("Aceptamos hipotesis alternativa")
 } else{
-  print("No rechazo hipotesis nula")
+  print("Aceptamos hipotesis nula")
 }
 
 # *** Valor-p
-vp_overall <- pnorm()
+vp_overall <- 2*pnorm(z_calc_overall, lower.tail = FALSE)
+interpret_p_val(vp_overall)
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-# *** Nula: Los que tienen high attack rate valen menos o igual que los que tienen medium atack rate, que a su vez valen menos o igual que los que tienen low
-# *** Alternativa: Los que tienen high attack rate valen mas que los que tienen medium atack rate, que a su vez valen mas que los que tienen low
-# *** Nula: mean_high_value <= mean_medium_value <= mean_low_value
-# *** Alternativa: mean_high_value > mean_medium_value > mean_low_value
+# * 3. Prueba de hipotesis dos poblaciones
 
 # **** Nivel de significancia 15%
 significance_level <- 0.15
 
-# *** Se divide en dos pruebas
-# **** a-1) Los que tienen high attack rate valen mas o igual que los que tienen medium atack rate
-# **** Nula: mean_high_value <= mean_medium_value ---- mean_high_value - mean_medium_value <= 0
-# **** Alternativa: mean_high_value > mean_medium_value ---- mean_high_value - mean_medium_value > 0
+# ** Overall - Position
+# *** Estadístico de prueba Z=( (x_barra1 - x_barra2) - (mu1 - mu2)) / raiz( var1/tamaño_muestra1 + var2/tamaño_muestra2)
+# *** Distribución del estadístico Z ~ N(0,1)
 
-# **** Estadístico de prueba Z=( (x_barra1 - x_barra2) - (mu1 - mu2)) / raiz( var1/tamaño_muestra1 + var2/tamaño_muestra2)
-# **** Distribución del estadístico Z ~ N(0,1)
+# *** GK-ST
+# **** Nula: Los jugadores con position gk tienen la misma media que aquellos con position st
+# **** Alte: Los jugadores con position gk tienen diferente media que aquellos con position st
+# **** Nula: mean_gk_overall = mean_st_overall
+# **** Alternativa: mean_gk_overall != mean_st_overall
+z_calc_gk_st_val <- ((mean(sample_gk_overall)-mean(sample_st_overall))-(0))/
+  sqrt((pop.var(gk_overall)/n2) + (pop.var(st_overall)/n2))
+rc_gk_st_val <- c(-qnorm(significance_level/2),
+                  qnorm(significance_level/2))
+if(min(rc_gk_st_val) < z_calc_gk_st_val & z_calc_gk_st_val < max(rc_gk_st_val)){
+  print("Se acepta hipotesis alternativa")
+} else {
+  print("Aceptamos hipotesis nula")
+}
 
+
+# *** GK-Other
+# **** Nula: Los jugadores con position gk tienen la misma media que aquellos con position other
+# **** Alte: Los jugadores con position gk tienen diferente media que aquellos con position other
+# **** Nula: mean_gk_overall = mean_other_overall
+# **** Alternativa: mean_gk_overall != mean_other_overall
+z_calc_gk_other_val <- ((mean(sample_gk_overall)-mean(sample_other_overall))-(0))/
+  sqrt((pop.var(gk_overall)/n2) + (pop.var(other_overall)/n2))
+rc_gk_other_val <- c(-qnorm(significance_level/2),
+                     qnorm(significance_level/2))
+if(min(rc_gk_other_val) < z_calc_gk_other_val & z_calc_gk_other_val < max(rc_gk_other_val)){
+  print("Se acepta hipotesis alternativa")
+} else {
+  print("Aceptamos hipotesis nula")
+}
+
+# *** ST-Other
+# **** Nula: Los jugadores con position st tienen la misma media que aquellos con position other
+# **** Alte: Los jugadores con position st tienen diferente media que aquellos con position other
+# **** Nula: mean_st_overall = mean_other_overall
+# **** Alternativa: mean_st_overall != mean_other_overall
+z_calc_st_other_val <- ((mean(sample_st_overall)-mean(sample_other_overall))-(0))/
+  sqrt((pop.var(st_overall)/n2) + (pop.var(other_overall)/n2))
+rc_st_other_val <- c(-qnorm(significance_level/2),
+                     qnorm(significance_level/2))
+if(min(rc_st_other_val) < z_calc_st_other_val & z_calc_st_other_val < max(rc_st_other_val)){
+  print("Se acepta hipotesis alternativa")
+} else {
+  print("Aceptamos hipotesis nula")
+}
+
+
+
+# ** Overall - Attackrate
+# *** Estadístico de prueba Z=( (x_barra1 - x_barra2) - (mu1 - mu2)) / raiz( var1/tamaño_muestra1 + var2/tamaño_muestra2)
+# *** Distribución del estadístico Z ~ N(0,1)
+
+# *** High-Medium
+# **** Nula: Los jugadores con attackrate high tienen la misma media que aquellos con attackrate medium
+# **** Alte: Los jugadores con attackrate high tienen diferente media que aquellos con attackrate medium
+# **** Nula: mean_high_overall = mean_medium_overall
+# **** Alternativa: mean_high_overall != mean_medium_overall
+z_calc_high_med_val <- ((mean(sample_high_overall)-mean(sample_medium_overall))-(0))/
+  sqrt((pop.var(high_overall)/n2) + (pop.var(medium_overall)/n2))
+rc_high_med_val <- c(-qnorm(significance_level/2),
+                     qnorm(significance_level/2))
+if(min(rc_high_med_val) < z_calc_high_med_val & z_calc_high_med_val < max(rc_high_med_val)){
+  print("Se acepta hipotesis alternativa")
+} else {
+  print("Aceptamos hipotesis nula")
+}
+
+# *** High-Low
+# **** Nula: Los jugadores con attackrate high tienen la misma media que aquellos con attackrate low
+# **** Alte: Los jugadores con attackrate high tienen diferente media que aquellos con attackrate low
+# **** Nula: mean_high_overall = mean_low_overall
+# **** Alternativa: mean_high_overall != mean_low_overall
+z_calc_high_low_val <- ((mean(sample_high_overall)-mean(sample_low_overall))-(0))/
+  sqrt((pop.var(high_overall)/n2) + (pop.var(low_overall)/n2))
+rc_high_low_val <- c(-qnorm(significance_level/2),
+                     qnorm(significance_level/2))
+if(min(rc_high_low_val) < z_calc_high_low_val & z_calc_high_low_val < max(rc_high_low_val)){
+  print("Se acepta hipotesis alternativa")
+} else {
+  print("Aceptamos hipotesis nula")
+}
+
+# *** Medium-Low
+# **** Nula: Los jugadores con attackrate medium tienen la misma media que aquellos con attackrate low
+# **** Alte: Los jugadores con attackrate medium tienen diferente media que aquellos con attackrate low
+# **** Nula: mean_medium_overall = mean_low_overall
+# **** Alternativa: mean_medium_overall != mean_low_overall
+z_calc_med_low_val <- ((mean(sample_medium_overall)-mean(sample_low_overall))-(0))/
+  sqrt((pop.var(medium_overall)/n2) + (pop.var(low_overall)/n2))
+rc_med_low_val <- c(-qnorm(significance_level/2),
+                    qnorm(significance_level/2))
+if(min(rc_med_low_val) < z_calc_med_low_val & z_calc_med_low_val < max(rc_med_low_val)){
+  print("Se acepta hipotesis alternativa")
+} else {
+  print("Aceptamos hipotesis nula")
+}
+
+
+
+
+# ** Value - Position
+# *** Estadístico de prueba Z=( (x_barra1 - x_barra2) - (mu1 - mu2)) / raiz( var1/tamaño_muestra1 + var2/tamaño_muestra2)
+# *** Distribución del estadístico Z ~ N(0,1)
+
+# *** GK-ST
+# **** Nula: Los jugadores con position gk tienen la misma media que aquellos con position st
+# **** Alte: Los jugadores con position gk tienen diferente media que aquellos con position st
+# **** Nula: mean_gk_value = mean_st_value
+# **** Alternativa: mean_gk_value != mean_st_value
+z_calc_gk_st_val <- ((mean(sample_gk_value)-mean(sample_st_value))-(0))/
+                        sqrt((pop.var(gk_value)/n2) + (pop.var(st_value)/n2))
+rc_gk_st_val <- c(-qnorm(significance_level/2),
+                     qnorm(significance_level/2))
+if(min(rc_gk_st_val) < z_calc_gk_st_val & z_calc_gk_st_val < max(rc_gk_st_val)){
+  print("Se acepta hipotesis alternativa")
+} else {
+  print("Aceptamos hipotesis nula")
+}
+
+# *** GK-Other
+# **** Nula: Los jugadores con position gk tienen la misma media que aquellos con position other
+# **** Alte: Los jugadores con position gk tienen diferente media que aquellos con position other
+# **** Nula: mean_gk_value = mean_other_value
+# **** Alternativa: mean_gk_value != mean_other_value
+z_calc_gk_other_val <- ((mean(sample_gk_value)-mean(sample_other_value))-(0))/
+  sqrt((pop.var(gk_value)/n2) + (pop.var(other_value)/n2))
+rc_gk_other_val <- c(-qnorm(significance_level/2),
+                  qnorm(significance_level/2))
+if(min(rc_gk_other_val) < z_calc_gk_other_val & z_calc_gk_other_val < max(rc_gk_other_val)){
+  print("Se acepta hipotesis alternativa")
+} else {
+  print("Aceptamos hipotesis nula")
+}
+
+# *** ST-Other
+# **** Nula: Los jugadores con position st tienen la misma media que aquellos con position other
+# **** Alte: Los jugadores con position st tienen diferente media que aquellos con position other
+# **** Nula: mean_st_value = mean_other_value
+# **** Alternativa: mean_st_value != mean_other_value
+z_calc_st_other_val <- ((mean(sample_st_value)-mean(sample_other_value))-(0))/
+  sqrt((pop.var(st_value)/n2) + (pop.var(other_value)/n2))
+rc_st_other_val <- c(-qnorm(significance_level/2),
+                     qnorm(significance_level/2))
+if(min(rc_st_other_val) < z_calc_st_other_val & z_calc_st_other_val < max(rc_st_other_val)){
+  print("Se acepta hipotesis alternativa")
+} else {
+  print("Aceptamos hipotesis nula")
+}
+
+
+# ** Value - Attackrate
+# *** Estadístico de prueba Z=( (x_barra1 - x_barra2) - (mu1 - mu2)) / raiz( var1/tamaño_muestra1 + var2/tamaño_muestra2)
+# *** Distribución del estadístico Z ~ N(0,1)
+
+# *** High-Medium
+# **** Nula: Los jugadores con attackrate high tienen la misma media que aquellos con attackrate medium
+# **** Alte: Los jugadores con attackrate high tienen diferente media que aquellos con attackrate medium
+# **** Nula: mean_high_value = mean_medium_value
+# **** Alternativa: mean_high_value != mean_medium_value
 z_calc_high_med_val <- ((mean(sample_high_value)-mean(sample_medium_value))-(0))/
                        sqrt((pop.var(high_value)/n2) + (pop.var(medium_value)/n2))
-rc_high_med_val <- qnorm(significance_level) 
-if(z_calc_high_med_val > rc_high_med_val){
+rc_high_med_val <- c(-qnorm(significance_level/2),
+                     qnorm(significance_level/2))
+if(min(rc_high_med_val) < z_calc_high_med_val & z_calc_high_med_val < max(rc_high_med_val)){
   print("Se acepta hipotesis alternativa")
 } else {
-  print("No rechazo hipotesis nula")
+  print("Aceptamos hipotesis nula")
 }
 
-# **** a-2) Los que tienen medium attack rate valen mas o igual que los que tienen low atack rate
-# **** Nula: mean_medium_value <= mean_low_value ---- mean_medium_value - mean_low_value <= 0
-# **** Alternativa: mean_medium_value > mean_low_value ---- mean_medium_value - mean_low_value > 0
+# *** High-Low
+# **** Nula: Los jugadores con attackrate high tienen la misma media que aquellos con attackrate low
+# **** Alte: Los jugadores con attackrate high tienen diferente media que aquellos con attackrate low
+# **** Nula: mean_high_value = mean_low_value
+# **** Alternativa: mean_high_value != mean_low_value
+z_calc_high_low_val <- ((mean(sample_high_value)-mean(sample_low_value))-(0))/
+  sqrt((pop.var(high_value)/n2) + (pop.var(low_value)/n2))
+rc_high_low_val <- c(-qnorm(significance_level/2),
+                     qnorm(significance_level/2))
+if(min(rc_high_low_val) < z_calc_high_low_val & z_calc_high_low_val < max(rc_high_low_val)){
+  print("Se acepta hipotesis alternativa")
+} else {
+  print("Aceptamos hipotesis nula")
+}
 
+# *** Medium-Low
+# **** Nula: Los jugadores con attackrate medium tienen la misma media que aquellos con attackrate low
+# **** Alte: Los jugadores con attackrate medium tienen diferente media que aquellos con attackrate low
+# **** Nula: mean_medium_value = mean_low_value
+# **** Alternativa: mean_medium_value != mean_low_value
 z_calc_med_low_val <- ((mean(sample_medium_value)-mean(sample_low_value))-(0))/
                      sqrt((pop.var(medium_value)/n2) + (pop.var(low_value)/n2))
-rc_med_low_val <- qnorm(significance_level) 
-if(z_calc_med_low_val > rc_med_low_val){
+rc_med_low_val <- c(-qnorm(significance_level/2),
+                    qnorm(significance_level/2))
+if(min(rc_med_low_val) < z_calc_med_low_val & z_calc_med_low_val < max(rc_med_low_val)){
   print("Se acepta hipotesis alternativa")
 } else {
-  print("No rechazo hipotesis nula")
+  print("Aceptamos hipotesis nula")
 }
+
+
