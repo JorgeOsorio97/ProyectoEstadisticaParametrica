@@ -1,0 +1,23 @@
+*   [1;34mda94f84[m - [1;32m(hace 13 segundos)[m [37mMerge branch 'master' of github.com:JorgeOsorio97/ProyectoEstadisticaParametrica[m [2;37m- JorgeOsorio97[m[1;33m (HEAD -> master)[m
+[31m|[m[32m\[m  
+[31m|[m * [1;34m06ae131[m - [1;32m(hace 2 minutos)[m [37mmend[m [2;37m- JorgeOsorio97[m[1;33m (origin/master)[m
+* [32m|[m [1;34mb43143f[m - [1;32m(hace 2 minutos)[m [37mmend[m [2;37m- JorgeOsorio97[m[1;33m[m
+[32m|[m[32m/[m  
+* [1;34m5919072[m - [1;32m(hace 4 minutos)[m [37mTEMA 6 Curva potencia[m [2;37m- JorgeOsorio97[m[1;33m[m
+* [1;34m69c050a[m - [1;32m(hace 40 minutos)[m [37mTEMA 6 PH dos poblaciones[m [2;37m- JorgeOsorio97[m[1;33m[m
+* [1;34m5078920[m - [1;32m(hace 2 horas)[m [37mcoreccion de distribuciones y avances en hipotesis[m [2;37m- JorgeOsorio97[m[1;33m[m
+* [1;34m2403cea[m - [1;32m(hace 3 horas)[m [37mTEMA 6 Pruebas de hipotesis[m [2;37m- JorgeOsorio97[m[1;33m[m
+* [1;34mc3feb17[m - [1;32m(hace 15 horas)[m [37mse agrega lower.tail=False para P>x[m [2;37m- JorgeOsorio97[m[1;33m[m
+* [1;34m256c151[m - [1;32m(hace 15 horas)[m [37mTema 5 Itr Conf Cocientes de varianza[m [2;37m- JorgeOsorio97[m[1;33m[m
+* [1;34mad39c14[m - [1;32m(hace 16 horas)[m [37mmend[m [2;37m- JorgeOsorio97[m[1;33m[m
+* [1;34mb5e5190[m - [1;32m(hace 16 horas)[m [37mTema 5 Itr de conf 2 poblaciones y poner seed[m [2;37m- JorgeOsorio97[m[1;33m[m
+* [1;34m05e846c[m - [1;32m(hace 17 horas)[m [37mTema 5 Intervalos de confianza[m [2;37m- JorgeOsorio97[m[1;33m[m
+* [1;34mc28ac08[m - [1;32m(hace 29 horas)[m [37magregar encoding al leer csv[m [2;37m- JorgeOsorio97[m[1;33m[m
+* [1;34mf42fcaf[m - [1;32m(hace 29 horas)[m [37mmend[m [2;37m- JorgeOsorio97[m[1;33m[m
+* [1;34ma0f7866[m - [1;32m(hace 2 días)[m [37mTema 5 Estimacion puntual de cuantitativas[m [2;37m- JorgeOsorio97[m[1;33m[m
+* [1;34ma847873[m - [1;32m(hace 2 días)[m [37mTema 4 TCL[m [2;37m- JorgeOsorio97[m[1;33m[m
+* [1;34m5f6bbad[m - [1;32m(hace 2 días)[m [37mTema 4 - primer parte[m [2;37m- JorgeOsorio97[m[1;33m[m
+* [1;34m02c4ef9[m - [1;32m(hace 2 días)[m [37magregar clasificacion de cuantitativas y varianza pobl[m [2;37m- JorgeOsorio97[m[1;33m[m
+* [1;34m6cd35ed[m - [1;32m(hace 3 días)[m [37mse agrega sample de 100[m [2;37m- JorgeOsorio97[m[1;33m[m
+* [1;34m212ff4b[m - [1;32m(hace 3 días)[m [37mtablas descriptivas de los datos[m [2;37m- JorgeOsorio97[m[1;33m[m
+* [1;34m9d66739[m - [1;32m(hace 4 días)[m [37mprimer commit[m [2;37m- JorgeOsorio97[m[1;33m[m

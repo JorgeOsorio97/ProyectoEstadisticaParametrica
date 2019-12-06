@@ -153,7 +153,7 @@ pr_attack_Low <- length(sample$AttackRate[sample$AttackRate == "Low"])/n
 # ** Values
 value_sample_mean <- mean(sample$Value)
 value_sample_var <- var(sample$Value)
-value_sample_sd <- sd(sample$Values)
+value_sample_sd <- sd(sample$Value)
 # ** Overall
 overall_sample_mean <- mean(sample$Overall)
 overall_sample_var <- var(sample$Overall)
@@ -193,7 +193,7 @@ itr_var_overall <- c(((n-1)*overall_sample_var)/qchisq(confianza_v/2,n-1, lower.
 
 # *** Value X4
 itr_mean_value <- c(value_sample_mean-qnorm(confianza_m/2)*(sigma_value/sqrt(n)),
-                   value_sample_mean+norm(confianza_m/2)*(sigma_value/sqrt(n)))
+                   value_sample_mean+qnorm(confianza_m/2)*(sigma_value/sqrt(n)))
 itr_var_value <- c(((n-1)*value_sample_var)/qchisq(confianza_v/2,n-1, lower.tail = FALSE),
                     ((n-1)*value_sample_var)/qchisq(1-(confianza_v/2),n-1, lower.tail = FALSE))
 
@@ -340,7 +340,7 @@ interpret_p_val(vp_overall)
 # * 2. Curva potencia
 
 medias_potencia <- c(65.5,65.7,65.9,66.1,66.3,66.5,66.7,66.9,67.1,67.3)
-error_tipo_2 <- lapply(pruebas, function(x) pnorm((x-mu_overall)/(sigma_overall/sqrt(n))))
+error_tipo_2 <- lapply(medias_potencia, function(x) pnorm((x-mu_overall)/(sigma_overall/sqrt(n))))
 
 plot(medias_potencia, error_tipo_2, type='o')
 
