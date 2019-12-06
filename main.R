@@ -339,10 +339,10 @@ interpret_p_val(vp_overall)
 
 # * 2. Curva potencia
 
-pruebas <- c(65.5,65.7,65.9,66.1,66.3,66.5,66.7,66.9,67.1,67.3)
-pruebas_2 <- lapply(pruebas, function(x) pnorm((x-mu_overall)/(sigma_overall/sqrt(n))))
+medias_potencia <- c(65.5,65.7,65.9,66.1,66.3,66.5,66.7,66.9,67.1,67.3)
+error_tipo_2 <- lapply(pruebas, function(x) pnorm((x-mu_overall)/(sigma_overall/sqrt(n))))
 
-plot(pruebas, pruebas_2, type='o')
+plot(medias_potencia, error_tipo_2, type='o')
 
 
 # * 3. Prueba de hipotesis dos poblaciones
